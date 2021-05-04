@@ -28,21 +28,19 @@
     }
    decrementCount() {
        console.log("decrement");
-     let { count } = this.state;
-     count--;
-     this.setState({
-       count
-     })
+       let { count, actions } = this.props;
+       count--;
+       actions.changeCount(count);
    }
    incrementCount() {
        console.log("increment");
-       console.log(this.state);
+       
        let { count, actions } = this.props;
        count++;
        actions.changeCount(count);
    }
    render() {
-     const { count } = this.state;
+     const { count } = this.props;
      return (
        <View styles={styles.container}>
          <Button
@@ -68,11 +66,11 @@
  });
 
  const mapStateToProps = state => ({
-    count: state.count,
+    count: state.count.count,
   });
   const ActionCreators = Object.assign(
     {},
-    changeCount,
+    {changeCount},
   );
   const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(ActionCreators, dispatch),
